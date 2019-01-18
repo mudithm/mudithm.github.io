@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>More Colors</title>
+	<script src="processing.js"></script></head>
+<body style="cursor: none">
+
+<script type="text/processing" data-processing-target="lines-canvas">
+  class SpecialEllipse 
+
+{
+
+  int r; // radius 
+  float xpos; // rect xposition
+  float ypos ; // rect yposition 
+  int re;
+  int gr;
+  int bl;
+  float m_damping;
+  int speed = 1;
+  int offset = 100;
+  int bg = 100;
+  bool increasingR = true, increasingG = true, increasingB = true;
+
+
+
+  SpecialEllipse(int ir, float ixp, float iyp, float damping) {
+    r = ir;
+    xpos = ixp;
+    ypos = iyp;
+
+    m_damping = damping;
+
+    re = Math.floor((Math.random() * 254) + 1 );
+
+    gr = Math.floor((Math.random() * 254) + 1 );
+
+    bl = Math.floor((Math.random() * 254) + 1 );
+  }
+
+ 
+  void move (float posX, float posY) {
+    float dif = ypos - posY;
+    if (abs(dif) > 1) {
+      ypos -= dif/m_damping;
+    }
+    dif = xpos - posX;
+    if (abs(dif) > 1) {
+      xpos -= dif/m_damping;
+    }
+  }
+ 
+  void display() {
+  if (re > speed + offset && re < 255 - speed)
+  {
+    if (increasingR)
+      re+=speed;
+    else
+      re-=speed;
+  }
+  else if (re <= speed + offset )
+  {
+    re+=speed;
+    increasingR = true;
+  }
+  else if (re >= 255 - speed)
+  {
+    re-=speed;
+    increasingR = false;
+  }
+
+  if (gr > speed  + offset && gr < 255 - speed)
+  {
+    if (increasingG)
+      gr+=speed;
+    else
+      gr-=speed;
+  }
+  else if (gr <= speed + offset )
+  {
+    gr+=speed;
+    increasingG = true;
+  }
+  else if (gr >= 255 - speed)
+  {
+    gr-=speed;
+    increasingG = false;
+  }
+
+  if (bl > speed  + offset && bl < 255 - speed)
+  {
+    if (increasingB)
+      bl+=speed;
+    else
+      bl-=speed;
+  }
+  else if (bl <= speed + offset )
+  {
+    bl+=speed;
+    increasingB = true;
+  }
+  else if (bl >= 255 - speed)
+  {
+    bl-=speed;
+    increasingB = false;
+  }
+
+
+
+      fill(re, gr, bl);
+      ellipse(xpos, ypos, r, r);
+    
+  }
+}
+
+  int timer=0;
+  var numCircles = Math.floor((Math.random() * 40) + 250 );
+  SpecialEllipse s = new Array();
+  SpecialEllipse Curs;
+
+  void setup() {
+  	var w = window,
+  		d = document,
+  		e = d.documentElement,
+  		g = d.getElementsByTagName('body')[0],
+  		x = w.innerWidth || e.clientWitdh || g.clientWidth,
+  		y = w.innerHeight || e.clientHeight || g.clientHeight;
+    size(x -10, y - 100);
+    background(240);
+
+    noStroke();
+    fill(0);
+    for (int i = 0; i < numCircles; i++)
+    {
+         s[i] = new SpecialEllipse(Math.floor((Math.random() * 30) + 30 ), Math.floor((Math.random() * x) + 1 ), Math.floor((Math.random() * y) + 1 ), Math.floor((Math.random() * 20) + 100 ));
+    } 
+  }
+
+  draw = function()
+  {
+
+    if (timer < 6){
+    timer++;
+    return;
+  }
+    // background(240);
+     for (int i = 1; i < numCircles; i++)
+    {
+
+     s[i].display();
+      s[i].move(mouseX, mouseY);    
+    }
+    //s[0].display();
+    //s[0].move(mouseX, mouseY);
+  }
+
+  	
+</script>
+
+<a href="home.html"><h1 style="text-align: center; float: left;">Home</h1></a>
+<h1 style="text-align: center; float: left; width: 80vw;">More Colors </h1>
+
+<canvas id="lines-canvas" style="cursor:none;"></canvas>
+
+</body>
+</html>

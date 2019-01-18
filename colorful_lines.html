@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Colorful Lines</title>
+	<script src="processing.js"></script></head>
+<body>
+
+<script type="text/processing" data-processing-target="lines-canvas">
+  var prevmouseX, prevmouseY;
+  var initR, initG, initB, strokeW;
+  var time = 0;
+  bool increasingR = true, increasingG = true, increasingB = true, increasingS = true;
+  void setup() {
+  	var w = window,
+  		d = document,
+  		e = d.documentElement,
+  		g = d.getElementsByTagName('body')[0],
+  		x = w.innerWidth || e.clientWitdh || g.clientWidth,
+  		y = w.innerHeight || e.clientHeight || g.clientHeight;
+    size(x - 10, y - 100);
+    background(250);
+
+    prevmouseX = mouseX;
+    prevmouseY = mouseY;
+
+    initR = Math.floor((Math.random() * 254) + 1 );
+    initG = Math.floor((Math.random() * 254) + 1 );
+    initB = Math.floor((Math.random() * 254) + 1 );
+
+    strokeW = Math.floor((Math.random() * 55) + 15 );
+  	strokeCap(ROUND);
+  }
+
+	var speed = 3;
+	var sspeed = 1;
+
+  void mousePressed(){
+  prevmouseX = mouseX;
+  prevmouseY = mouseY;
+}
+
+  void mouseDragged(){
+/*  if (time < 5){
+  	time++;
+  	prevmouseX = mouseX;
+    prevmouseY = mouseY;
+  	return;
+}
+  */
+
+  if (initR > speed && initR < 255 - speed)
+  {
+  	if (increasingR)
+  		initR+=speed;
+  	else
+  		initR-=speed;
+  }
+  else if (initR <= speed)
+  {
+  	initR+=speed;
+  	increasingR = true;
+  }
+  else if (initR >= 255 - speed)
+  {
+  	initR-=speed;
+  	increasingR = false;
+  }
+
+  if (initG > speed && initG < 255 - speed)
+  {
+  	if (increasingG)
+  		initG+=speed;
+  	else
+  		initG-=speed;
+  }
+  else if (initG <= speed)
+  {
+  	initG+=speed;
+  	increasingG = true;
+  }
+  else if (initG >= 255 - speed)
+  {
+  	initG-=speed;
+  	increasingG = false;
+  }
+
+
+  if (initB > speed && initB < 255 - speed)
+  {
+  	if (increasingB)
+  		initB+=speed;
+  	else
+  		initB-=speed;
+  }
+  else if (initB <= speed)
+  {
+  	initB+=speed;
+  	increasingB = true;
+  }
+  else if (initB >= 255 - speed)
+  {
+  	initB-=speed;
+  	increasingB = false;
+  }
+
+  if (strokeW > 30 + sspeed&& strokeW < 70 - sspeed)
+  {
+  	if (increasingS)
+  		strokeW+=sspeed;
+  	else
+  		strokeW-=sspeed;
+  }
+  else if (strokeW <= 30 + sspeed)
+  {
+  	strokeW+=sspeed;
+  	increasingS = true;
+  }
+  else if (strokeW >= 70 - sspeed)
+  {
+  	strokeW-=sspeed;
+  	increasingS = false;
+  }
+
+
+  strokeWeight(strokeW);
+  stroke(initR, initG, initB);
+  fill(0);
+  line(mouseX, mouseY, prevmouseX, prevmouseY);
+  prevmouseX = mouseX;
+  prevmouseY = mouseY;
+
+	}
+
+</script>
+
+<a href="home.html"><h1 style="text-align: center; float: left;">Home</h1></a>
+<h1 style="text-align: center; float: left; width: 80vw;">Colorful Lines</h1>
+<canvas id="lines-canvas"></canvas>
+
+</body>
+</html>
