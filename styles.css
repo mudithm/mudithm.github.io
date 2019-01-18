@@ -18,3 +18,7 @@ a {
 	font-size: 3vw;
 	text-decoration: none;
 }
+
+a:hover {
+	background-color:  rgba(190,190,190,.8);
+}
